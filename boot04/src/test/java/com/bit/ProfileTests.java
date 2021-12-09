@@ -1,5 +1,7 @@
 package com.bit;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -49,8 +51,20 @@ public class ProfileTests {
 			profile.setMember(member);
 			prepo.save(profile);
 		}
-		
 	}
+	
+	@Test
+	public void testFetchJoin1() {
+		List<Object[]> results = mrepo.getMemberWithProfileCount("user1");
+		results.forEach(arr->System.out.println(Arrays.toString(arr)));
+	}
+	
+	@Test
+	public void testFetchJoin2() {
+		List<Object[]> results = mrepo.getMemberWithProfile("user1");
+		results.forEach(arr->System.out.println(Arrays.toString(arr)));
+	}
+	
 }
 
 
