@@ -13,9 +13,11 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter
 @Entity @Table(name = "tbl_pds")
+@ToString(exclude = "files")
 public class PDSBoard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

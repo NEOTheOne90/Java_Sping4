@@ -1,6 +1,9 @@
 package com.bit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.transaction.Transactional;
 
@@ -53,7 +56,43 @@ public class PDSBoardTests {
 		int count = repo.updatePDSFile(fno, newName);
 		log.info("************update count : " + count);
 	}
+	
+	@Transactional
+	@Test
+	public void testDeletePDSFile() {
+		Long fno = 2L;
+		int count = repo.deletePDSFile(fno);
+		log.info("**********delete count : " + count);
+	}
+	
+	@Test
+	public void insertDummies() {
+		List<PDSBoard> list = new ArrayList<PDSBoard>();
+		IntStream.range(1, 100).forEach(i->{
+			PDSBoard pds = new PDSBoard();
+			pds.setPname("자료 " + i);
+			PDSFile file1 = new PDSFile();
+			file1.setPdsfile("file1.doc");
+			PDSFile file2 = new PDSFile();
+			file2.setPdsfile("file2.doc");
+			//asList : 가변인수 메소드
+			pds.setFiles(Arrays.asList(file1, file2));
+			log.info("try to save pds");
+			list.add(pds);
+		});
+		repo.saveAll(list);
+	}
+	
+	
+	
+	@Test
+	public void testViewSummary() {
+		repo.getSummary().forEach(arr->
+			log.info(Arrays.toString(arr)));
+	}
 }
+
+
 
 
 
